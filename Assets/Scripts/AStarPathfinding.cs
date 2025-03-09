@@ -90,7 +90,7 @@ public class AStarPathfinding : MonoBehaviour
             }
 
             //left
-            Vector3Int leftGridPos = currentNode.gridPosition + new Vector3Int(1, 0, 0);
+            Vector3Int leftGridPos = currentNode.gridPosition + new Vector3Int(-1, 0, 0);
 
             if (leftGridPos.x >= 0)
             {
@@ -99,7 +99,7 @@ public class AStarPathfinding : MonoBehaviour
             }
 
             //up
-            Vector3Int upGridPos = currentNode.gridPosition + new Vector3Int(1, 0, 0);
+            Vector3Int upGridPos = currentNode.gridPosition + new Vector3Int(0, 0, 1);
 
             if (upGridPos.z < grids.cols)
             {
@@ -108,7 +108,7 @@ public class AStarPathfinding : MonoBehaviour
             }
 
             //down
-            Vector3Int downGridPos = currentNode.gridPosition + new Vector3Int(1, 0, 0);
+            Vector3Int downGridPos = currentNode.gridPosition + new Vector3Int(0, 0, -1);
 
             if (downGridPos.z >= 0)
             {
