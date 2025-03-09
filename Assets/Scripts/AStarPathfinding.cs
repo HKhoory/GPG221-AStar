@@ -92,7 +92,7 @@ public class AStarPathfinding : MonoBehaviour
             //left
             Vector3Int leftGridPos = currentNode.gridPosition + new Vector3Int(1, 0, 0);
 
-            if (leftGridPos.x < grids.rows)
+            if (leftGridPos.x >= 0)
             {
                 Nodeling leftGrid = grids.GetNodePos(grids.GridToWorldPos(leftGridPos));
                 neighbours.Add(leftGrid);
@@ -101,7 +101,7 @@ public class AStarPathfinding : MonoBehaviour
             //up
             Vector3Int upGridPos = currentNode.gridPosition + new Vector3Int(1, 0, 0);
 
-            if (upGridPos.x < grids.rows)
+            if (upGridPos.z < grids.cols)
             {
                 Nodeling upGrid = grids.GetNodePos(grids.GridToWorldPos(upGridPos));
                 neighbours.Add(upGrid);
@@ -110,7 +110,7 @@ public class AStarPathfinding : MonoBehaviour
             //down
             Vector3Int downGridPos = currentNode.gridPosition + new Vector3Int(1, 0, 0);
 
-            if (downGridPos.x < grids.rows)
+            if (downGridPos.z >= 0)
             {
                 Nodeling downGrid = grids.GetNodePos(grids.GridToWorldPos(downGridPos));
                 neighbours.Add(downGrid);
