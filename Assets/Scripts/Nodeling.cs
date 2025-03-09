@@ -1,22 +1,19 @@
 using System;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
 public class Nodeling : IComparable
 {
 
-    public Nodeling nextNode; //defines the next node the AI will travel to using the A* algorithm
+    public Nodeling NextNode { get; set; } //defines the next node the AI will travel to using the A* algorithm
     public bool IsBlocked { get; private set; } //determines if the AI can walk in this node
     public int version = 0; //stores the number of iterations the node went through calculating the f cost
 
     public Vector3 worldPosition { get; set; }
-    public Vector3Int gridPosition { get; set; } //it was int
+    public Vector3Int gridPosition { get; set; }
 
     private int gCost, hCost, fCost;
-
-    //have the debug thingy in here
 
 #if ASTAR_DEBUG
 
@@ -110,16 +107,9 @@ public class Nodeling : IComparable
         {
             return 1;
         }
-
-        return 0;
-
+        else return 0;
 
 
-        /*if (nodes.fCost > fCost)
-        {
-            return -1;
-        }
-        else return 1;*/
     }
 
 }

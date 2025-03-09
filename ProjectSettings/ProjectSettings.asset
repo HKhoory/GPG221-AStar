@@ -879,7 +879,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: ASTAR_DEBUG;A*_DEBUG
+    Standalone: ASTAR_DEBUG
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

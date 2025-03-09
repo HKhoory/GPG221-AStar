@@ -43,6 +43,7 @@ public class AStarPathfinding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space)) 
         A_StarAlgorithm();
     }
 
@@ -56,7 +57,7 @@ public class AStarPathfinding : MonoBehaviour
             currentNode = pathList[0];
 
             pathList.Remove(currentNode);
-            currentNode.version = versionNumber;
+            currentNode.Version = versionNumber;
 
             if (currentNode == goalNode)
             {
@@ -136,7 +137,7 @@ public class AStarPathfinding : MonoBehaviour
                     neighbours[i].GCost = movementPath;
                     neighbours[i].HCost = CalculateDistance(neighbours[i].gridPosition, goalNode.gridPosition);
 
-                    neighbours[i].nextNode = currentNode;
+                    neighbours[i].NextNode = currentNode;
 
                     if (!pathList.Contains(neighbours[i]))
                     {
@@ -155,9 +156,9 @@ public class AStarPathfinding : MonoBehaviour
         {
             finalPath.Add(node);
 
-            if(node.nextNode != null)
+            if(node.NextNode != null)
             {
-                FinalPath(node.nextNode);
+                FinalPath(node.NextNode);
             }
         }
     }
