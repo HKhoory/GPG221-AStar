@@ -7,41 +7,65 @@ public class Gridlet : MonoBehaviour
 
     [SerializeField] private GameObject node; //takes the prefab
 
-    Nodes[] grid;
+    Nodeling[] grid;
 
     [SerializeField] public int rows, cols;
     [SerializeField] public float nodeLength, nodeWidth; //ho
 
     [SerializeField] int totalNodes;
-    //has their sizes as well
 
-    // Start is called before the first frame update
     void Start()
     {
         totalNodes = rows * cols;
 
-        grid = new Nodes[totalNodes];
+        grid = new Nodeling[totalNodes];
 
         for (int z = 0; z < cols; z++)
         {
             for (int x = 0; x < rows; x++)
             {
-                int gridSpawn = x + z * rows;
+                int i = x + z * rows;
 
-                Vector3 nodePosition = new Vector3(x * nodeLength, 0, z * nodeWidth);
+                Vector3 midPoint = new Vector3(nodeWidth/2.0f, 0, nodeLength / 2.0f);
+                Vector3 nodePosition = new Vector3(x * nodeLength + midPoint.x, 0, z * nodeWidth + midPoint.z);
 
-                bool isBlocked = Physics.CheckBox(nodePosition, nodePosition, Quaternion.identity, 3);
+                Vector3Int gridPosition = new Vector3Int(x, 0, z);
 
-                grid[gridSpawn] = new Nodes(nodePosition); //you need to do it here man
-                grid[gridSpawn].Instantiation = Instantiate(node, nodePosition, node.transform.rotation); //need to make a constructor for the prefab
+                bool isBlocked = Physics.CheckBox(nodePosition, midPoint);
+                Debug.Log(isBlocked);
+
+                grid[i] = new Nodeling(nodePosition, gridPosition, isBlocked);
+#if ASTAR_DEBUG
+                grid[i].Instantiation = Instantiate(node, nodePosition, node.transform.rotation);
+                if (grid[i].IsBlocked)
+                {
+                    grid[i].Instantiation.GetComponent<Renderer>().material.color = new Color(1, 0, 1, 0.5f);
+                }
+#endif
+
             }
         }
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3Int WorldToGridPos(Vector3 worldPos)
     {
-        
+        return new Vector3Int((int)(worldPos.x / nodeWidth), 0, (int)(worldPos.z / nodeLength));
+
     }
+
+    public Vector3Int GridToWorldPos(Vector3Int gridPos)
+    {
+        return new Vector3Int((int)(gridPos.x / nodeWidth), 0, (int)(gridPos.z / nodeLength));
+    }
+
+    public Nodeling GetNodePos(Vector3 worldPos)
+    {
+        Vector3Int gridPos = WorldToGridPos(worldPos);
+
+        int i = gridPos.x + gridPos.z * rows;
+        return grid[i];
+    }
+    
+
 }
