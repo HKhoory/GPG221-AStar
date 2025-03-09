@@ -22,10 +22,6 @@ public class AStarPathfinding : MonoBehaviour
 
     [SerializeField] private int versionNumber = 1;
 
-    //main algorithm
-    //has lists to store nodes to know paths
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +32,7 @@ public class AStarPathfinding : MonoBehaviour
 
 #if ASTAR_DEBUG
         startNode.Instantiation.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 0.5f);
-        goalNode.Instantiation.GetComponent<Renderer>().material.color = new Color(0, 0, 1, 0.5f);
+        goalNode.Instantiation.GetComponent<Renderer>().material.color = new Color(0, 0.3f, 0.5f, 0.5f);
 #endif
 
         pathList.Add(startNode);
@@ -52,7 +48,7 @@ public class AStarPathfinding : MonoBehaviour
 
     private void A_StarAlgorithm()
     {
-        if (goalNode.IsBlocked) return;
+        if (goalNode.IsBlocked || goalNode == null) return;
 
         if (pathList.Count > 0)
         {
@@ -151,8 +147,6 @@ public class AStarPathfinding : MonoBehaviour
 
         }
 
-        
-
     }
 
     private void FinalPath(Nodeling node)
@@ -168,9 +162,9 @@ public class AStarPathfinding : MonoBehaviour
         }
     }
 
-    private int CalculateDistance(Vector3 grid1, Vector3 grid2)
+    private int CalculateDistance(Vector3Int grid1, Vector3Int grid2)
     {
-        return 0;
+        return Mathf.Abs(grid1.x - grid2.x) + Mathf.Abs(grid1.y - grid2.y) + Mathf.Abs(grid1.z - grid2.z);
     }
 
 

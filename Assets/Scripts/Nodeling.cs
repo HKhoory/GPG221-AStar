@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -100,11 +101,25 @@ public class Nodeling : IComparable
     {
         Nodeling nodes = (Nodeling)obj;
 
-        if (nodes.fCost > fCost)
+
+        if (nodes.FCost > FCost)
         {
             return -1;
         }
-        else return 1;
+        else if (nodes.FCost < FCost)
+        {
+            return 1;
+        }
+
+        return 0;
+
+
+
+        /*if (nodes.fCost > fCost)
+        {
+            return -1;
+        }
+        else return 1;*/
     }
 
 }

@@ -32,7 +32,6 @@ public class Gridlet : MonoBehaviour
                 Vector3Int gridPosition = new Vector3Int(x, 0, z);
 
                 bool isBlocked = Physics.CheckBox(nodePosition, midPoint);
-                Debug.Log(isBlocked);
 
                 grid[i] = new Nodeling(nodePosition, gridPosition, isBlocked);
 #if ASTAR_DEBUG
@@ -56,7 +55,7 @@ public class Gridlet : MonoBehaviour
 
     public Vector3Int GridToWorldPos(Vector3Int gridPos)
     {
-        return new Vector3Int((int)(gridPos.x / nodeWidth), 0, (int)(gridPos.z / nodeLength));
+        return new Vector3Int((int)(gridPos.x * nodeWidth), 0, (int)(gridPos.z * nodeLength));
     }
 
     public Nodeling GetNodePos(Vector3 worldPos)
