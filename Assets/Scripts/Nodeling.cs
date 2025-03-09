@@ -8,7 +8,7 @@ public class Nodeling : IComparable
 
     public Nodeling NextNode { get; set; } //defines the next node the AI will travel to using the A* algorithm
     public bool IsBlocked { get; private set; } //determines if the AI can walk in this node
-    public int version = 0; //stores the number of iterations the node went through calculating the f cost
+    public int version; //stores the number of iterations the node went through calculating the f cost
 
     public Vector3 worldPosition { get; set; }
     public Vector3Int gridPosition { get; set; }

@@ -137,12 +137,17 @@ public class AStarPathfinding : MonoBehaviour
                     neighbours[i].GCost = movementPath;
                     neighbours[i].HCost = CalculateDistance(neighbours[i].gridPosition, goalNode.gridPosition);
 
-                    neighbours[i].NextNode = currentNode;
+                    if (neighbours[i].NextNode != currentNode)
+                    neighbours[i].NextNode = currentNode; //this is the problem
 
                     if (!pathList.Contains(neighbours[i]))
                     {
                         pathList.Add(neighbours[i]);
                     }
+                }
+                else if (neighbours[i].NextNode == null)
+                {
+                    Debug.Log("WARNING");
                 }
             }
 
@@ -152,14 +157,14 @@ public class AStarPathfinding : MonoBehaviour
 
     private void FinalPath(Nodeling node)
     {
-        if(node != null)
+        while (node != null)
         {
-            finalPath.Add(node);
-
-            if(node.NextNode != null)
+            if (finalPath.Contains(node))
             {
-                FinalPath(node.NextNode);
+                break;
             }
+            finalPath.Add(node);
+            node = node.NextNode;
         }
     }
 
