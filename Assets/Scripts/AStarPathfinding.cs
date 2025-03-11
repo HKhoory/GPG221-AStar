@@ -121,34 +121,39 @@ public class AStarPathfinding : MonoBehaviour
             for (int i = 0; i < neighbours.Count; i++)
             {
 
-                #if ASTAR_DEBUG
-                neighbours[i].Instantiation.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0.5f);
-                #endif
-
-                if (neighbours[i].IsBlocked || neighbours[i].version != versionNumber)
+                if (neighbours[i].IsBlocked || neighbours[i].version == versionNumber)
                 {
                     continue;
                 }
 
+#if ASTAR_DEBUG
+                neighbours[i].Instantiation.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0.5f);
+#endif
+
                 int movementPath = CalculateDistance(neighbours[i].gridPosition, currentNode.gridPosition) + currentNode.GCost;
+                neighbours[i].Version = versionNumber;
 
                 if (movementPath < neighbours[i].GCost || !pathList.Contains(neighbours[i]))
                 {
                     neighbours[i].GCost = movementPath;
                     neighbours[i].HCost = CalculateDistance(neighbours[i].gridPosition, goalNode.gridPosition);
+                    
 
                     if (neighbours[i].NextNode != currentNode)
-                    neighbours[i].NextNode = currentNode; //this is the problem
+                    neighbours[i].NextNode = currentNode;
+
+                    
 
                     if (!pathList.Contains(neighbours[i]))
                     {
                         pathList.Add(neighbours[i]);
                     }
+                    else if (neighbours[i].NextNode == null)
+                    {
+                        Debug.Log("WARNING"); //for debugging if NextNode got overwritten
+                    }
                 }
-                else if (neighbours[i].NextNode == null)
-                {
-                    Debug.Log("WARNING");
-                }
+                
             }
 
         }

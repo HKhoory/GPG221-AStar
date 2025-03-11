@@ -11,7 +11,6 @@ public class Gridlet : MonoBehaviour
 
     [SerializeField] public int rows, cols;
     [SerializeField] public float nodeLength, nodeWidth; //ho
-
     [SerializeField] int totalNodes;
 
     void Start()

@@ -90,7 +90,12 @@ public class Nodeling : IComparable
     {
         get { return version; }
 
-        set {  versionText.text = value.ToString();}
+        set {
+            version = value;
+#if ASTAR_DEBUG
+            versionText.text = value.ToString();
+#endif
+        }
 
     }
 
